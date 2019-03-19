@@ -88,7 +88,7 @@ module.exports = {
         new webpack.DllReferencePlugin({
             manifest, // 关联dll拆分出去的依赖
             name: 'vendor_library'
-        }),
+        })
     ],
     node: {
         // prevent webpack from injecting useless setImmediate polyfill because Vue

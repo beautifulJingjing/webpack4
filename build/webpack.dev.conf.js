@@ -5,9 +5,11 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const utils = require('./utils');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 var bundleConfig = require("../bundle-config.json");
 
@@ -17,10 +19,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         //插进的引用, 压缩，分离美化
         new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin(),// 它允许在运行时更新所有类型的模块，而无需完全刷新,
-        // new webpack.DllReferencePlugin({
-        //     manifest, // 关联dll拆分出去的依赖
-        //     name: 'vendor_library'
-        // }),
         new HtmlWebpackPlugin({
             file: 'index.html',
             hash: true,
@@ -31,7 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         // 加载dll文件
         new AddAssetHtmlPlugin([{
             filepath: path.join(__dirname, '../static', bundleConfig.vendor.js),
-            // publicPath: path.join(__dirname, '../dist/static/js'),
+            publicPath: utils.assetsPath('/js'),
             outputPath: './static/js',
         }]),
     ],

@@ -51,6 +51,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         // 加载dll文件
         new AddAssetHtmlPlugin([{
             filepath: path.join(__dirname, '../static', bundleConfig.vendor.js),
+            publicPath: utils.assetsPath('/js'),
             outputPath: './static/js',
         }]),
         // 清除dist下的文件
@@ -80,13 +81,13 @@ const webpackConfig = merge(baseWebpackConfig, {
             new OptimizeCSSAssetsPlugin({}),
         ],
         splitChunks: {
-            // chunks: "async",
-            // minSize: 30000, // 模块的最小体积
-            // minChunks: 1, // 模块的最小被引用次数
-            // maxAsyncRequests: 5, // 按需加载的最大并行请求数
-            // maxInitialRequests: 3, // 一个入口最大并行请求数
-            // automaticNameDelimiter: '~', // 文件名的连接符
-            // name: true,
+            chunks: "async",
+            minSize: 30000, // 模块的最小体积
+            minChunks: 1, // 模块的最小被引用次数
+            maxAsyncRequests: 5, // 按需加载的最大并行请求数
+            maxInitialRequests: 3, // 一个入口最大并行请求数
+            automaticNameDelimiter: '~', // 文件名的连接符
+            name: true,
             cacheGroups: {
                 //缓存组, 在默认设置中，会将 node_mudules 文件夹中的模块打包进一个叫
                 // vendors的bundle中，所有引用超过两次的模块分配到 default bundle 中。更可以通过 priority 来设置优先级

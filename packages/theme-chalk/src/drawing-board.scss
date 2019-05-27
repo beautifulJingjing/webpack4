@@ -1,0 +1,193 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(drawing-board) {
+  width: 100%;
+  border:1px solid #d6d6d6;
+  @include e(header) {
+    border-bottom:1px solid #d6d6d6;
+    background-color: #fff;
+    min-height:50px;
+    padding:10px;
+    box-sizing: border-box;
+    >ul{
+      display: flex;
+    }
+    .isc-drawing-board__header-img, .isc-drawing-board__header-text, .isc-drawing-board__header-video {
+      width:20px;
+      height:20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+    .isc-drawing-board__header-img{
+      .img-path{
+        width:16px;
+        height:16px;
+        background: url('../../../static/images/photo.png') no-repeat;
+      }
+
+    }
+    .isc-drawing-board__header-video{
+      .img-path{
+        width:16px;
+        height:16px;
+        background: url('../../../static/images/video.png') no-repeat;
+      }
+    }
+    .isc-drawing-board__header-font{
+      margin-right: 15px;
+    }
+    .isc-select{
+      width:70px;
+    }
+    .isc-input__inner{
+      height:20px;
+      line-height: 20px;
+      padding:0 5px;
+    }
+    .isc-color-picker__trigger{
+      height:20px;
+      width:20px;
+    }
+  }
+  @include e(content) {
+    position: relative;
+    min-height: 400px;
+    background-color: $--drawing-board-background-color;
+    cursor: crosshair;
+  }
+  @include e(block) {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    cursor: auto;
+    .dot {
+      position: absolute;
+      background-color: #EAEBED;
+      display: none;
+      width: 6px;
+      height: 6px;
+      z-index: 2;
+      &.dot1 {
+        top: -3px;
+        left: -3px;
+        cursor: nwse-resize;
+      }
+      &.dot2 {
+        top: -3px;
+        left: calc(100% - 3px);
+        cursor: nesw-resize;
+      }
+      &.dot3 {
+        top: calc(100% - 3px);
+        left: calc(100% - 3px);
+        cursor: nwse-resize;
+      }
+      &.dot4 {
+        top: calc(100% - 3px);
+        left: -3px;
+        cursor: nesw-resize;
+      }
+      &.dot5 {
+        top: -3px;
+        left: 50%;
+        margin-left: -3px;
+        cursor: ns-resize;
+      }
+      &.dot6 {
+        top: 50%;
+        left: calc(100% - 3px);
+        margin-top: -2px;
+        cursor: ew-resize;
+      }
+      &.dot7 {
+        top: calc(100% - 3px);
+        left: 50%;
+        margin-left: -3px;
+        cursor: ns-resize;
+      }
+      &.dot8 {
+        top: 50%;
+        left: -3px;
+        margin-top: -3px;
+        cursor: ew-resize;
+      }
+    }
+    .dot-line {
+      position: absolute;
+      background: #fff;
+      z-index: 1;
+      &.dot-line1 {
+        height: 1px;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+      &.dot-line2 {
+        height: 100%;
+        width: 1px;
+        top: 0;
+        left: calc(100% - 1px);
+      }
+      &.dot-line3 {
+        height: 1px;
+        width: 100%;
+        top: calc(100% - 1px);
+        left: 0;
+      }
+      &.dot-line4 {
+        height: 100%;
+        width: 1px;
+        top: 0;
+        left: 0;
+      }
+    }
+    .base-line {
+      position: absolute;
+      display: none;
+      &.base-line1 {
+        border-top: 1px dashed #fff;
+        height: 0;
+        right: 0;
+        top:0;
+      }
+      &.base-line2 {
+        border-left: 1px dashed #fff;
+        width:0;
+        bottom: 0;
+        right: 0;
+      }
+      &.base-line3 {
+        border-top: 1px dashed #fff;
+        height: 0;
+        right: 0;
+        bottom:0;
+      }
+      &.base-line4 {
+        border-left: 1px dashed #fff;
+        width:0;
+        left:0;
+        bottom: 0;
+      }
+    }
+    textarea{
+      resize:none;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    video{
+      width: 100%;
+    }
+    @include when(active) {
+      cursor: move;
+      .dot, .base-line {
+        display: block;
+      }
+    }
+  }
+}

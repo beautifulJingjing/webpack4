@@ -55,7 +55,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             outputPath: './static/js',
         }]),
         // 清除dist下的文件
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
         new webpack.BannerPlugin({
             banner: "曹晶晶 - caojingjing - 2550815215@qq.com\n" +
             "hash:[hash]\n" +

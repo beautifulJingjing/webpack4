@@ -10,6 +10,8 @@ const vueLoaderConfig = require('./vue-loader.conf');
 const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const manifest = require('../static/vendor-manifest.json');
 const devMode = process.env.NODE_ENV !== 'production';
+const isPlay = !!process.env.PLAY_ENV;
+const config = require('./config');
 
 function resolve (dir) {
     return path.join(__dirname, '..', dir)
@@ -17,25 +19,38 @@ function resolve (dir) {
 
 module.exports = {
     context: path.resolve(__dirname, '../'),
-    entry: './src/index.js', //入口文件  在vue-cli main.js
-    output: {       //webpack如何向外输出
-        path: path.resolve(__dirname, 'dist'),//定位，输出文件的目标路径
-        filename: '[name].js' //文件名[name].js默认，也可自行配置
+    entry: {
+        app: (isPlay ? './examples/play.js' : './examples/play.js'),
+    },
+    // 输出设置
+    output: {
+        path: resolve('lib'),
+        filename: '[name].js',
+        chunkFilename: '[name].js'
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src'),
+            main: path.resolve(__dirname, '../src'),
+            packages: path.resolve(__dirname, '../packages'),
+            examples: path.resolve(__dirname, '../examples'),
+            'isyscore-ui': path.resolve(__dirname, '../')
         }
     },
     module: {
         rules: [
+            // {
+            //     test: /\.js$/,
+            //     loader: 'babel-loader',
+            //     // include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')],
+            //     exclude: /node_modules/
+            // },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                // include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')],
-                exclude: /node_modules/
+                test: /\.(jsx?|babel|es6)$/,
+                include: process.cwd(),
+                exclude: config.jsexclude,
+                loader: 'babel-loader'
             },
             {
                 test: /\.vue$/,
@@ -51,11 +66,11 @@ module.exports = {
                 ]
             },
             {
-                test: /\.less$/,
+                test: /\.scss$/,
                 use: [
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'less-loader',
+                    'sass-loader',
                 ]
             },
             {

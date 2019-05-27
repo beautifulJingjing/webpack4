@@ -1,0 +1,151 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(step) {
+  display: flex;
+  font-size: 16px;
+  position: relative;
+  @include pseudo(last-of-type) {
+    @include e(line) {
+      display: none;
+    }
+
+    // 只有未设置 space 的情况下才自适应宽度
+    @include when(flex) {
+      flex-basis: auto !important;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+
+    @include e((main, description)) {
+      padding-right: 0;
+    }
+  }
+  @include e(head) {
+    display: flex;
+    line-height: 32px;
+    font-size: 16px;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    @include e(icon) {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      position: relative;
+      margin-right: 8px;
+      box-sizing: border-box;
+      background: #FFF;
+      border-radius: 50%;
+      border: 1px solid;
+    }
+    @include e(main) {
+      line-height: 32px;
+      color: $--color-text-regular;
+    }
+  }
+  @include when(horizontal) {
+    align-items: center;
+    &:first-child {
+      @include e(head) {
+        padding-right: $--step-head-padding;
+      }
+    }
+    &:last-child {
+      @include e(head) {
+        padding-left: $--step-head-padding;
+      }
+    }
+    &:not(:first-child):not(:last-child) {
+      @include e(head) {
+        padding-right: $--step-head-padding;
+        padding-left: $--step-head-padding;
+      }
+    }
+    @include e(line) {
+      height: 1px;
+      background: $--color-text-placeholder;
+      margin-left: $--step-head-padding;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+    }
+  }
+  @include when(vertical) {
+    @include e(head) {
+      height: 32px;
+    }
+    @include e(line) {
+      width: 1px;
+      background: $--color-text-placeholder;
+      margin-left: $--step-head-padding;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+  }
+  @include when(center) {
+    justify-content: center;
+    @at-root {
+      @include e(line) {
+        left: 50%;
+        right: -50%;
+      }
+    }
+  }
+  @include when(wait) {
+    @include e(head) {
+      @include e(icon) {
+        color: $--color-text-secondary;
+        border-color: $--color-text-secondary;
+      }
+    }
+  }
+  @include when(finish) {
+    @include e(head) {
+      @include e(icon) {
+        color: $--color-primary;
+        border-color: $--color-primary;
+      }
+    }
+    @include e(line) {
+      background: $--color-primary;
+    }
+  }
+  @include when(process) {
+    @include e(head) {
+      @include e(icon) {
+        background:$--color-primary;
+        color: $--color-white;
+        border-color: $--color-primary;
+      }
+      @include e(main) {
+        color: $--color-text-primary;
+      }
+    }
+  }
+  @include when(success) {
+    @include e(head) {
+      @include e(icon) {
+        background:$--color-white;
+        color: $--color-primary;
+        border-color: $--color-primary;
+        @include e(icon-inner){
+          width: 10px;
+          height: 6px;
+          border: 1px solid $--color-primary;
+          border-top: none;
+          border-right: none;
+          transform: rotate(-45deg);
+          transform-origin: 20% 40%;
+        }
+      }
+    }
+    @include e(line) {
+      background: $--color-primary;
+    }
+  }
+}

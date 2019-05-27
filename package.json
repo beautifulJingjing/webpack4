@@ -1,21 +1,36 @@
 {
-  "name": "webpack4demo",
+  "name": "isyscore-ui",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/isyscore-ui.common.js",
   "dependencies": {
-    "element-ui": "^2.6.1",
+    "fs": "0.0.1-security",
+    "iview": "^1.0.1",
+    "json-templater": "^1.2.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "throttle-debounce": "^1.1.0",
+    "uppercamelcase": "^3.0.0",
     "vue": "^2.6.9",
     "vue-router": "^3.0.2"
   },
+  "files": [
+    "lib",
+    "src",
+    "packages",
+    "types"
+  ],
+  "typings": "types/index.d.ts",
   "devDependencies": {
     "add-asset-html-webpack-plugin": "^3.1.3",
     "assets-webpack-plugin": "^3.9.10",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-component": "^1.1.1",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
@@ -24,14 +39,24 @@
     "babel-runtime": "^6.26.0",
     "chalk": "^2.4.2",
     "clean-webpack-plugin": "^2.0.1",
+    "cp-cli": "^2.0.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "file-loader": "^3.0.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-sass": "^4.0.2",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "ora": "^3.2.0",
+    "progress-bar-webpack-plugin": "^1.12.1",
+    "sass": "^1.20.1",
+    "sass-loader": "^7.1.0",
     "shelljs": "^0.8.3",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
@@ -43,19 +68,27 @@
     "webpack-bundle-analyzer": "^3.1.0",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
-    "build": "node build/build.js",
+    "build:file": "node build/bin/build-entry.js",
+    "build:utils": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
+    "build:theme": "node build/bin/gen-cssfile && gulp build --gulpfile packages/theme-chalk/gulpfile.js && cp-cli packages/theme-chalk/lib lib/theme-chalk",
+    "clean": "rimraf lib && rimraf packages/*/lib",
+    "deploy:build": "npm run build:file && node build/build.js",
+    "dev": "npm run build:file && cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.conf.js",
+    "dev:play": "npm run build:file && cross-env NODE_ENV=development PLAY_ENV=true webpack-dev-server --config build/webpack.dev.conf.js",
+    "dev:common": "webpack-dev-server --config build/webpack.common.conf.js",
+    "dist": "npm run clean && npm run build:file && webpack --config build/webpack.common.conf.js && webpack --config build/webpack.component.js && npm run build:utils && npm run build:theme",
     "dll": "node build/dll.js"
   },
-  "engines": {
-    "node": ">=6.11.5",
-    "npm": ">=3.0.0"
+  "peerDependencies": {
+    "vue": "^1.0.17"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "isyscore-ui"
+  ],
   "license": "ISC"
 }

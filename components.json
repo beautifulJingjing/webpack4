@@ -1,0 +1,20 @@
+{
+  "button": "./packages/button/index.js",
+  "button-group": "./packages/button-group/index.js",
+  "step": "./packages/step/index.js",
+  "steps": "./packages/steps/index.js",
+  "card": "./packages/card/index.js",
+  "color-picker": "./packages/color-picker/index.js",
+  "input": "./packages/input/index.js",
+  "checkbox": "./packages/checkbox/index.js",
+  "table-tree": "./packages/table-tree/index.js",
+  "drawing-board": "./packages/drawing-board/index.js",
+  "upload": "./packages/upload/index.js",
+  "loading": "./packages/loading/index.js",
+  "progress": "./packages/progress/index.js",
+  "select": "./packages/select/index.js",
+  "option": "./packages/option/index.js",
+  "option-group": "./packages/option-group/index.js",
+  "tag": "./packages/tag/index.js",
+  "scrollbar": "./packages/scrollbar/index.js"
+}

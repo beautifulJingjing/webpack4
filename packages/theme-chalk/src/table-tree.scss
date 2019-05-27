@@ -1,0 +1,64 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(table-tree) {
+  width: 100%;
+  box-sizing: border-box;
+  border-left: 1px solid $--table-tree-border-color;
+  border-top: 1px solid $--table-tree-border-color;
+  @include e(empty) {
+    width: 100%;
+    color: $--table-tree-font-color;
+    line-height: $--table-tree-height;
+    text-align: center;
+    box-sizing: border-box;
+    border-right: 1px solid $--table-tree-border-color;
+    border-bottom: 1px solid $--table-tree-border-color;
+  }
+}
+
+@include b(table-tree-node) {
+  display: flex;
+  @include e(children) {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+    @include e(header) {
+      border-right: 1px solid $--table-tree-border-color;
+      border-bottom: 1px solid $--table-tree-border-color;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+    }
+    @include e(inner) {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+      flex-direction: column;
+      @include when(inline) {
+        flex-direction: row;
+        border-bottom: 1px solid $--table-tree-border-color;
+        border-right: 1px solid $--table-tree-border-color;
+        .is-leaf{
+          border-bottom: none;
+          border-right: none;
+        }
+      }
+    }
+  }
+  @include e(content) {
+    @include when(leaf) {
+      flex: 1;
+      line-height: $--table-tree-height;
+      height: $--table-tree-height;
+      border-bottom: 1px solid $--table-tree-border-color;
+      border-right: 1px solid $--table-tree-border-color;
+      padding: 0 20px;
+    }
+  }
+  @include e(label) {
+    color: $--table-tree-font-color;
+    display: inline-block;
+    white-space: nowrap;
+  }
+}

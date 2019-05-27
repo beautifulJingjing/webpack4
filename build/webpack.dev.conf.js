@@ -6,6 +6,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const utils = require('./utils');
+const config = require('../config');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,9 +15,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 var bundleConfig = require("../bundle-config.json");
 
 const devWebpackConfig = merge(baseWebpackConfig, {
-    mode: 'development',
+    mode: 'development', // process.env.NODE_ENV
     plugins: [
-        //插进的引用, 压缩，分离美化
         new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin(),// 它允许在运行时更新所有类型的模块，而无需完全刷新,
         new HtmlWebpackPlugin({
@@ -38,8 +38,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         host:'localhost',// 开发服务器监听的主机地址
         open: true,
         hot: true,
+        quiet: true,
         compress:true,   // 开发服务器是否启动gzip等压缩
-        port:8081       // 开发服务器监听的端口
+        port:8081,       // 开发服务器监听的端口
+        overlay: config.dev.errorOverlay
+            ? { warnings: false, errors: true }
+            : false,
+        clientLogLevel: "error"
     }
 });
 module.exports = devWebpackConfig;

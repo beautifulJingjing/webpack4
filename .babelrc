@@ -3,13 +3,10 @@
     [
       "env",
       {
+        "loose": true,
         "modules": false,
         "targets": {
-          "browsers": [
-            "> 1%",
-            "last 2 versions",
-            "not ie <= 8"
-          ]
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
         }
       }
     ],
@@ -18,13 +15,33 @@
   "plugins": [
     "transform-vue-jsx",
     "transform-runtime",
-    "syntax-dynamic-import",
-    [
-      "component",
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
-      }
-    ]
-  ]
+    "syntax-dynamic-import"
+  ],
+  "env": {
+    "utils": {
+      "presets": [
+        [
+          "env",
+          {
+            "loose": true,
+            "modules": "commonjs",
+            "targets": {
+              "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        ["module-resolver", {
+          "root": ["isyscore-ui"],
+          "alias": {
+            "isyscore-ui/src": "isyscore-ui/lib"
+          }
+        }]
+      ]
+    },
+    "test": {
+      "plugins": ["istanbul"]
+    }
+  }
 }

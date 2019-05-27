@@ -1,0 +1,30 @@
+html, body, ul, li, div, p, dl, dt, dd, h1, h2, h4, h5 {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: #F6F9FD;
+	font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", SimHei, sans-serif;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+i {
+	font-style: normal;
+}
+
+h1 {
+	font-weight: normal;
+}
+
+input, textarea {
+	outline: none;
+	border: none;
+}

@@ -1,0 +1,9 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(card) {
+    box-shadow:0 4px 20px 0 $--card-box-shadow-color;
+    border-radius:10px;
+    background-color: #fff;
+    overflow: hidden;
+}

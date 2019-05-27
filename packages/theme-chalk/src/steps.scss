@@ -1,0 +1,12 @@
+@import "mixins/mixins";
+
+@include b(steps) {
+  display: flex;
+  @include m(horizontal) {
+    align-items: center;
+  }
+  @include m(vertical) {
+    height: 100%;
+    flex-flow: column;
+  }
+}
